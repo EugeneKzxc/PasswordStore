@@ -21,15 +21,17 @@ class MainActivity : ComponentActivity() {
             PasswordStoreTheme {
                 Scaffold(topBar = { TopAppBar(title = { Text(text = "PasswordStore")}, backgroundColor = Color.Blue, contentColor = Color.White, elevation = 12.dp)},
                         content = { Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background){ NavHost()}})
+            }
         }
     }
-}
 
 
 @Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    PasswordStoreTheme {
+    @Composable
+    fun DefaultPreview()
+    {
+        PasswordStoreTheme {
 
+        }
     }
-}}
+}
