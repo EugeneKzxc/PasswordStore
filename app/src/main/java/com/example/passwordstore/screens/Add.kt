@@ -33,6 +33,21 @@ fun AddScreen(navController: NavHostController)
                 .fillMaxWidth()
                 .padding(10.dp))
             {
+                Text(text = "Type title:",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(8.dp))
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = {password = it},
+                    label = { Text(text = "title")},
+                    modifier = Modifier.padding(40.dp))
+            }
+            Card(modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp))
+            {
                 Text(text = "Type login:",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
@@ -59,6 +74,7 @@ fun AddScreen(navController: NavHostController)
                     label = { Text(text = "password")},
                     modifier = Modifier.padding(40.dp))
             }
+
         }
     }
 }
