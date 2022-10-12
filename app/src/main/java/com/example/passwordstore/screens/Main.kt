@@ -1,10 +1,8 @@
 package com.example.passwordstore.screens
 
 import android.app.Application
-import android.icu.text.CaseMap.Title
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.passwordstore.MainViewModel
@@ -33,19 +30,15 @@ import com.example.passwordstore.navigation.NavRoute
 import com.example.passwordstore.ui.theme.PasswordStoreTheme
 
 @Composable
-fun MainScreen(navController: NavHostController)
+fun MainScreen(navController: NavHostController, viewModel: MainViewModel)
 {
-    val context = LocalContext.current
-    val mViewModel: MainViewModel =
-        viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
-
-    val notes = mViewModel.readTest.observeAsState(listOf()).value
+    val notes = viewModel.readAllNotes().observeAsState(listOf()).value
 
     Scaffold(floatingActionButton =
     { FloatingActionButton(onClick = {navController.navigate(NavRoute.Add.route)})
-        {
-            Icon(imageVector = Icons.Filled.Add, contentDescription = "Add", tint = Color.White)
-        }
+    {
+        Icon(imageVector = Icons.Filled.Add, contentDescription = "Add", tint = Color.White)
+    }
     })
     {
         LazyColumn{
@@ -78,6 +71,9 @@ fun prevMainScreen()
 {
     PasswordStoreTheme()
     {
-        MainScreen(navController = rememberNavController())
+        val context = LocalContext.current
+        val mViewModel: MainViewModel =
+            viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
+        MainScreen(navController = rememberNavController(), viewModel = mViewModel)
     }
 }

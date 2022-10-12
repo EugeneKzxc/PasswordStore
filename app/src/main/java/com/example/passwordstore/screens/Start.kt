@@ -1,7 +1,6 @@
 package com.example.passwordstore.screens
 
 import android.app.Application
-import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
@@ -12,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -22,7 +20,7 @@ import com.example.passwordstore.navigation.NavRoute
 import com.example.passwordstore.ui.theme.PasswordStoreTheme
 
 @Composable
-fun StartScreen(navController: NavHostController)
+fun StartScreen(navController: NavHostController, viewModel: MainViewModel)
 {
     val context = LocalContext.current
     val mViewModel: MainViewModel =
@@ -50,6 +48,9 @@ fun prevStartScreen()
 {
     PasswordStoreTheme()
     {
-        StartScreen(navController = rememberNavController())
+        val context = LocalContext.current
+        val mViewModel: MainViewModel =
+            viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
+        StartScreen(navController = rememberNavController(), viewModel = mViewModel)
     }
 }
