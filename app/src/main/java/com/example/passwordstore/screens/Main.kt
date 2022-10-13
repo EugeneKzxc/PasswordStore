@@ -42,18 +42,19 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel)
     })
     {
         LazyColumn{
-            items(notes) {note -> NoteItem(note = note, navController = navController)}
+            items(notes) {note -> NoteItem(note = note, navController = navController, viewModel = viewModel)}
         }
     }
 }
 
 @Composable
-fun NoteItem(note : Note, navController: NavHostController)
+fun NoteItem(note : Note, navController: NavHostController, viewModel: MainViewModel)
 {
     Card(modifier = Modifier
         .fillMaxWidth()
-        .padding(vertical = 8.dp, horizontal = 24.dp)
-        .clickable { navController.navigate(NavRoute.Note.route) }, elevation = 6.dp)
+        .padding(vertical = 8.dp, horizontal = 24.dp),
+        //.clickable { navController.navigate(NavRoute.Note.route) },
+        elevation = 6.dp)
     {
         Column(modifier = Modifier
             .padding(vertical = 8.dp), horizontalAlignment = Alignment.CenterHorizontally)
@@ -61,6 +62,10 @@ fun NoteItem(note : Note, navController: NavHostController)
             Text(text = note.title, fontSize = 40.sp, fontWeight = FontWeight.Bold)
             Text(text = note.login, fontSize = 24.sp)
             Text(text = note.password, fontSize = 24.sp)
+            Button(onClick = {viewModel.deleteNote(note = note){} })
+            {
+                Text(text = "delete")
+            }
         }
     }
 }
